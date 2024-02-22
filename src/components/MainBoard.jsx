@@ -5,7 +5,7 @@ import './MainBoard.css'
 const createRow = (i) => {
     let content = [];
     for(let j = 0; j < 8; j++) {
-        content.push(<Square row={i} col={j}/>)
+        content.push(<Square key={j} row={i} col={j}/>)
     }
     return content;
 }
@@ -14,7 +14,7 @@ const createBoard = () => {
     let content = [];
     for(let i = 0; i < 8; i++) {
         content.push(
-            <div className="row">
+            <div className="row" key={i}>
                 {createRow(i)}
             </div>
         )
