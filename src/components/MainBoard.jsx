@@ -35,7 +35,6 @@ function MainBoard() {
             while(i < 7) {
                 i++;
                 if(data[(i*8)+j] != null) {
-                    console.log(`i: ${i} j:${j} datacol:${data[i*8+j]} piececol: ${piece.col}`)
                     if(data[(i*8)+j].col !== piece.col) {
                         arr[(i*8)+j] = true;
                     }
@@ -49,7 +48,6 @@ function MainBoard() {
             while(j < 7) {
                 j++;
                 if(data[(i*8)+j] != null) {
-                    console.log(`i: ${i} j:${j} datacol:${data[i*8+j]} piececol: ${piece.col}`)
                     console.log(data[i*8+j])
                     if(data[(i*8)+j].col !== piece.col) {
                         arr[(i*8)+j] = true;
@@ -64,7 +62,6 @@ function MainBoard() {
             while(i > 0) {
                 i--;
                 if(data[(i*8)+j] != null) {
-                    console.log(`i: ${i} j:${j} datacol:${data[i*8+j]} piececol: ${piece.col}`)
                     if(data[(i*8)+j].col !== piece.col) {
                         arr[(i*8)+j] = true;
                     }
@@ -78,7 +75,6 @@ function MainBoard() {
             while(j > 0) {
                 j--;
                 if(data[(i*8)+j] != null) {
-                    console.log(`i: ${i} j:${j} datacol:${data[i*8+j]} piececol: ${piece.col}`)
                     if(data[(i*8)+j].col !== piece.col) {
                         arr[(i*8)+j] = true;
                     }
@@ -149,6 +145,150 @@ function MainBoard() {
             }
             setMoveOn(arr);
             // console.log(moveOn);
+        } else if(piece.piece === 'q') {
+            let i = row;
+            let j = col;
+            let arr = [...moveOn];
+            while(i < 7) {
+                i++;
+                if(data[(i*8)+j] != null) {
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            i=row;
+            j=col;
+            while(j < 7) {
+                j++;
+                if(data[(i*8)+j] != null) {
+                    console.log(data[i*8+j])
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            i = row;
+            j = col;
+            while(i > 0) {
+                i--;
+                if(data[(i*8)+j] != null) {
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            i=row;
+            j=col;
+            while(j > 0) {
+                j--;
+                if(data[(i*8)+j] != null) {
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            i = row;
+            j = col;
+            while(i < 7 && j < 7) {
+                i++;
+                j++;
+                if(data[(i*8)+j] != null) {
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            i = row;
+            j = col;
+            while(i < 7 && j > 0) {
+                i++;
+                j--;
+                if(data[(i*8)+j] != null) {
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            i = row;
+            j = col;
+            while(i > 0 && j < 7) {
+                i--;
+                j++;
+                if(data[(i*8)+j] != null) {
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            i=row;
+            j=col;
+            while(i > 0 && j > 0) {
+                i--;
+                j--;
+                if(data[(i*8)+j] != null) {
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            setMoveOn(arr);
+        } else if(piece.piece === 'k') {
+            let i = row;
+            let j = col;
+            let arr = [...moveOn];
+            if(i > 0) {
+                if(data[(i-1)*8+j].col !== piece.col) {
+                    arr[(i-1)*8+j] = true;
+                }
+                if(j > 0 && data[(i-1)*8+j-1] !== piece.col) {
+                    arr[(i-1)*8+j-1] = true;
+                }
+                if(j < 7 && data[(i-1)*8+j+1] !== piece.col) {
+                    arr[(i-1)*8+j+1] = true;
+                }
+            }
+            if(j > 0 && data[i*8+j-1] !== piece.col) {
+                arr[i*8+j-1] = true;
+            }
+            if(j < 7 && data[i*8+j+1] !== piece.col) {
+                arr[i*8+j+1] = true;
+            }
+            if(i < 7) {
+                if(data[(i+1)*8+j].col !== piece.col) {
+                    arr[(i+1)*8+j] = true;
+                }
+                if(j > 0 && data[(i+1)*8+j-1] !== piece.col) {
+                    arr[(i+1)*8+j-1] = true;
+                }
+                if(j < 7 && data[(i+1)*8+j+1] !== piece.col) {
+                    arr[(i+1)*8+j+1] = true;
+                }
+            }
         }
     }
 
