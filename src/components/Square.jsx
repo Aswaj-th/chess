@@ -3,19 +3,17 @@ import { ReactSVG } from 'react-svg';
 import './Square.css';
 // import { useState } from 'react';
 
-const findMoveAndUpdate = (row, col, piece, moveOn, data, setData, setMoveOn) => {
-    if(piece === null) return;
-    if(!moveOn) {
-        
-    }
-}
+function Square({row, col, piece, data, moveOn, findMoveAndUpdate}) {
 
-function Square({row, col, piece, data, setData, moveOn, setMoveOn}) {
-    const white = ((row+col)%2 === 0)
+
+    // const [thisMoveOn, changeThisMoveOn] = useState(moveOn[row*8+col]);
+    const currentMoveOn = moveOn;
+    // console.log(moveOn);
+    const white = ((row+col)%2 === 0);
     return (
-        <div className="square" style={{background: white ? "white" : "#26f030"}} onClick={findMoveAndUpdate(row, col, piece, moveOn, data, setData, setMoveOn)}>
+        <div className="square" style={{background: white ? "white" : "#26f030"}} onClick={(e) => findMoveAndUpdate(e, row, col, piece)}>
             {piece !== null && <ReactSVG src={piece.pic} />}
-            {moveOn && <div className='dot'></div>}
+            {currentMoveOn && <div className='dot'></div>}
         </div>
   )
 }

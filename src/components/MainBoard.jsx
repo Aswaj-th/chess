@@ -1,38 +1,10 @@
 import React from 'react'
-import Square from './Square'
+import Row from './Row';
 import './MainBoard.css'
 import jsonData from '../pieces.json';
 import { useState } from 'react';
 
-const findPiece = (row, col, data) => {
-    //console.log(jsonData[(row*8)+col]);
-    return data[(row*8)+col]
-}
-
-const createRow = (i, data, setData, moveOn, setMoveOn) => {
-    let content = [];
-    for(let j = 0; j < 8; j++) {
-        const piece = findPiece(i, j, data)
-        content.push(<Square key={j} row={i} col={j} piece={piece} data={data} setData={setData} moveOn={moveOn[(i*8)+j]} setMoveOn={setMoveOn}/>)
-        // console.log(piece);
-    }
-    return content;
-}
-
-const createBoard = (data, setData, moveOn, setMoveOn) => {
-    let content = [];
-    for(let i = 0; i < 8; i++) {
-        content.push(
-            <div className="row" key={i}>
-                {createRow(i, data, setData, moveOn, setMoveOn)}
-            </div>
-        )
-    }
-    //console.log(content);
-    return content;
-}
-
-const createData = (jsonData) => {
+const createData = () => {
     let arr = [];
     let j = 0;
     for(let i = 0; i < 64; i++) {
@@ -51,14 +23,155 @@ const createMoveOnArray = () => {
 }
 
 function MainBoard() {
-    //console.log(jsonData);
-    const [started, setStarted] = useState(false);
-    const [data, setData] = useState(createData(jsonData));
+    
+    const [data, setData] = useState(createData());
     const [moveOn, setMoveOn] = useState(createMoveOnArray());
+
+    const changeMoveOn = (row, col, piece) => {
+        if(piece.piece === 'r') {
+            let i = row;
+            let j = col;
+            let arr = [...moveOn];
+            while(i < 7) {
+                i++;
+                if(data[(i*8)+j] != null) {
+                    console.log(`i: ${i} j:${j} datacol:${data[i*8+j]} piececol: ${piece.col}`)
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            i=row;
+            j=col;
+            while(j < 7) {
+                j++;
+                if(data[(i*8)+j] != null) {
+                    console.log(`i: ${i} j:${j} datacol:${data[i*8+j]} piececol: ${piece.col}`)
+                    console.log(data[i*8+j])
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            i = row;
+            j = col;
+            while(i > 0) {
+                i--;
+                if(data[(i*8)+j] != null) {
+                    console.log(`i: ${i} j:${j} datacol:${data[i*8+j]} piececol: ${piece.col}`)
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            i=row;
+            j=col;
+            while(j > 0) {
+                j--;
+                if(data[(i*8)+j] != null) {
+                    console.log(`i: ${i} j:${j} datacol:${data[i*8+j]} piececol: ${piece.col}`)
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            setMoveOn(arr);
+            // console.log(moveOn);
+        } else if(piece.piece === 'b') {
+            let i = row;
+            let j = col;
+            let arr = [...moveOn];
+            while(i < 7 && j < 7) {
+                i++;
+                j++;
+                if(data[(i*8)+j] != null) {
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            i = row;
+            j = col;
+            while(i < 7 && j > 0) {
+                i++;
+                j--;
+                if(data[(i*8)+j] != null) {
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            i = row;
+            j = col;
+            while(i > 0 && j < 7) {
+                i--;
+                j++;
+                if(data[(i*8)+j] != null) {
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            i=row;
+            j=col;
+            while(i > 0 && j > 0) {
+                i--;
+                j--;
+                if(data[(i*8)+j] != null) {
+                    if(data[(i*8)+j].col !== piece.col) {
+                        arr[(i*8)+j] = true;
+                    }
+                    break;
+                } else {
+                    arr[(i*8)+j] = true;
+                }
+            }
+            setMoveOn(arr);
+            // console.log(moveOn);
+        }
+    }
+
+    const findMoveAndUpdate = (e, row, col, piece) => {
+        // console.log(e.currentTarget);
+        if(piece === null) return;
+        if(!moveOn[(row*8)+col]) {
+            e.currentTarget.style.background = 'yellow';
+            changeMoveOn(row, col, piece);
+        }
+    }
+
+    //console.log(jsonData);
     return (
         <div className="mainBoard">
-            {!started && createBoard(data, setData, moveOn, setMoveOn)}
-            {started && createBoard(data, setData, moveOn, setMoveOn)}
+            <Row row={0} data={data} moveOn={moveOn.slice(0, 8)} findMoveAndUpdate={findMoveAndUpdate}/>
+            <Row row={1} data={data} moveOn={moveOn.slice(8, 16)} findMoveAndUpdate={findMoveAndUpdate}/>
+            <Row row={2} data={data} moveOn={moveOn.slice(16, 24)} findMoveAndUpdate={findMoveAndUpdate}/>
+            <Row row={3} data={data} moveOn={moveOn.slice(24, 32)} findMoveAndUpdate={findMoveAndUpdate}/>
+            <Row row={4} data={data} moveOn={moveOn.slice(32, 40)} findMoveAndUpdate={findMoveAndUpdate}/>
+            <Row row={5} data={data} moveOn={moveOn.slice(40, 48)} findMoveAndUpdate={findMoveAndUpdate}/>
+            <Row row={6} data={data} moveOn={moveOn.slice(48, 56)} findMoveAndUpdate={findMoveAndUpdate}/>
+            <Row row={7} data={data} moveOn={moveOn.slice(56)} findMoveAndUpdate={findMoveAndUpdate}/>
         </div>
     )
 }
