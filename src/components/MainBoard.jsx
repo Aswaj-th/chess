@@ -9,22 +9,22 @@ const findPiece = (row, col, data) => {
     return data[(row*8)+col]
 }
 
-const createRow = (i, data, setData) => {
+const createRow = (i, data, setData, moveOn, setMoveOn) => {
     let content = [];
     for(let j = 0; j < 8; j++) {
         const piece = findPiece(i, j, data)
-        content.push(<Square key={j} row={i} col={j} piece={piece} data={data} setData={setData}/>)
+        content.push(<Square key={j} row={i} col={j} piece={piece} data={data} setData={setData} moveOn={moveOn[(i*8)+j]} setMoveOn={setMoveOn}/>)
         // console.log(piece);
     }
     return content;
 }
 
-const createBoard = (data, setData) => {
+const createBoard = (data, setData, moveOn, setMoveOn) => {
     let content = [];
     for(let i = 0; i < 8; i++) {
         content.push(
             <div className="row" key={i}>
-                {createRow(i, data, setData)}
+                {createRow(i, data, setData, moveOn, setMoveOn)}
             </div>
         )
     }
@@ -46,7 +46,7 @@ const createData = (jsonData) => {
 
 const createMoveOnArray = () => {
     let arr = Array(64).fill(false, 0);
-    console.log(arr);
+    //console.log(arr);
     return arr;
 }
 
@@ -57,8 +57,8 @@ function MainBoard() {
     const [moveOn, setMoveOn] = useState(createMoveOnArray());
     return (
         <div className="mainBoard">
-            {!started && createBoard(data, setData)}
-            {started && createBoard(data, setData)}
+            {!started && createBoard(data, setData, moveOn, setMoveOn)}
+            {started && createBoard(data, setData, moveOn, setMoveOn)}
         </div>
     )
 }
