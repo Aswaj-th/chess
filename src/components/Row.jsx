@@ -5,7 +5,7 @@ function Row( {row, data, moveOn, findMoveAndUpdate }) {
     const newMoveOn=[...moveOn]
     return (
     <div className='row'>
-        {moveOn[row] && console.log("HI")}
+        {/* {moveOn[row] && console.log("HI")} */}
         <Square row={row} col={0} piece={data[row*8+0]} data={data} moveOn={newMoveOn[0]} findMoveAndUpdate={findMoveAndUpdate}/>
         <Square row={row} col={1} piece={data[row*8+1]} data={data} moveOn={newMoveOn[1]} findMoveAndUpdate={findMoveAndUpdate}/>
         <Square row={row} col={2} piece={data[row*8+2]} data={data} moveOn={newMoveOn[2]} findMoveAndUpdate={findMoveAndUpdate}/>

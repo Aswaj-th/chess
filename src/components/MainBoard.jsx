@@ -165,7 +165,7 @@ function MainBoard() {
             while(j < 7) {
                 j++;
                 if(data[(i*8)+j] != null) {
-                    console.log(data[i*8+j])
+                    // console.log(data[i*8+j])
                     if(data[(i*8)+j].col !== piece.col) {
                         arr[(i*8)+j] = true;
                     }
@@ -262,33 +262,103 @@ function MainBoard() {
             let j = col;
             let arr = [...moveOn];
             if(i > 0) {
-                if(data[(i-1)*8+j].col !== piece.col) {
+                if(data[(i-1)*8+j] == null || data[(i-1)*8+j].col !== piece.col) {
                     arr[(i-1)*8+j] = true;
                 }
-                if(j > 0 && data[(i-1)*8+j-1] !== piece.col) {
+                if(j > 0 && (data[(i-1)*8+j-1] == null || data[(i-1)*8+j-1].col !== piece.col)) {
                     arr[(i-1)*8+j-1] = true;
                 }
-                if(j < 7 && data[(i-1)*8+j+1] !== piece.col) {
+                if(j < 7 && (data[(i-1)*8+j+1] == null ||  data[(i-1)*8+j+1].col !== piece.col)) {
                     arr[(i-1)*8+j+1] = true;
                 }
             }
-            if(j > 0 && data[i*8+j-1] !== piece.col) {
+            if(j > 0 && (data[i*8+j-1] == null || data[i*8+j-1].col !== piece.col)) {
                 arr[i*8+j-1] = true;
             }
-            if(j < 7 && data[i*8+j+1] !== piece.col) {
+            if(j < 7 && (data[i*8+j+1] == null || data[i*8+j+1].col !== piece.col)) {
                 arr[i*8+j+1] = true;
             }
             if(i < 7) {
-                if(data[(i+1)*8+j].col !== piece.col) {
+                if(data[(i+1)*8+j].col == null || data[(i+1)*8+j].col !== piece.col) {
                     arr[(i+1)*8+j] = true;
                 }
-                if(j > 0 && data[(i+1)*8+j-1] !== piece.col) {
+                if(j > 0 && (data[(i+1)*8+j-1] == null || data[(i+1)*8+j-1].col !== piece.col)) {
                     arr[(i+1)*8+j-1] = true;
                 }
-                if(j < 7 && data[(i+1)*8+j+1] !== piece.col) {
+                if(j < 7 && (data[(i+1)*8+j+1] == null || data[(i+1)*8+j+1].col !== piece.col)) {
                     arr[(i+1)*8+j+1] = true;
                 }
             }
+            setMoveOn(arr);
+        } else if(piece.piece === 'n') {
+            let i = row;
+            let j = col;
+            let arr = [...moveOn];
+            if(i > 0) {
+                if(j > 1 && (data[(i-1)*8+j-2] == null || data[(i-1)*8+j-2].col !== piece.col)) {
+                    arr[(i-1)*8+j-2] = true;
+                }
+                if(j < 6 && (data[(i-1)*8+j+2] == null || data[(i-1)*8+j+2].col !== piece.col)) {
+                    arr[(i-1)*8+j+2] = true;
+                }
+            }
+            if(i > 1) {
+                if(j > 0 && (data[(i-2)*8+j-1] == null || data[(i-2)*8+j-1].col !== piece.col)) {
+                    arr[(i-2)*8+j-1] = true;
+                }
+                if(j < 7 && (data[(i-2)*8+j+1] == null || data[(i-2)*8+j+1].col !== piece.col)) {
+                    arr[(i-2)*8+j+1] = true;
+                }
+            }
+            if(i < 6) {
+                if(j > 0 && (data[(i+2)*8+j-1] == null || data[(i+2)*8+j-1].col !== piece.col)) {
+                    arr[(i+2)*8+j-1] = true;
+                }
+                if(j < 7 && (data[(i+2)*8+j+1] == null || data[(i+2)*8+j+1].col !== piece.col)) {
+                    arr[(i+2)*8+j+1] = true;
+                }
+            }
+            if(i < 7) {
+                if(j > 1 && (data[(i+1)*8+j-2] == null || data[(i+1)*8+j-2].col !== piece.col)) {
+                    arr[(i+1)*8+j-2] = true;
+                }
+                if(j < 6 && (data[(i+1)*8+j+2] == null || data[(i+1)*8+j+2].col !== piece.col)) {
+                    arr[(i+1)*8+j+2] = true;
+                }
+            }
+            setMoveOn(arr);
+        } else if(piece.piece === 'p') {
+            let i = row;
+            let j = col;
+            let arr = [...moveOn];
+            if(piece.col === 'b') {
+                if(data[(i+1)*8+j] == null) {
+                    arr[(i+1)*8+j] = true;
+                }
+                if(i === 1 && data[(i+2)*8+j] == null) {
+                    arr[(i+2)*8+j] = true;
+                }
+                if(j > 0 && data[(i+1)*8+j-1] != null && data[(i+1)*8+j-1].col !== piece.col) {
+                    arr[(i+1)*8+j-1] = true;
+                }
+                if(j < 7 && data[(i+1)*8+j+1] != null && data[(i+1)*8+j+1].col !== piece.col) {
+                    arr[(i+1)*8+j+1] = true;
+                }
+            } else if(piece.col === 'w') {
+                if(data[(i-1)*8+j] == null) {
+                    arr[(i-1)*8+j] = true;
+                }
+                if(i === 6 && data[(i-2)*8+j] == null) {
+                    arr[(i-2)*8+j] = true;
+                }
+                if(j > 0 && data[(i-1)*8+j-1] != null && data[(i-1)*8+j-1].col !== piece.col) {
+                    arr[(i-1)*8+j-1] = true;
+                }
+                if(j < 7 && data[(i-1)*8+j+1] != null && data[(i-1)*8+j+1].col !== piece.col) {
+                    arr[(i-1)*8+j+1] = true;
+                }
+            }
+            setMoveOn(arr);
         }
     }
 

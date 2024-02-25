@@ -49,8 +49,18 @@
     "pic": "piecesPics/Chess_rdt45.svg",
     "moved": false
 },
-null,
-null,
+{
+    "ind": 9,
+    "col": "b",
+    "piece": "p",
+    "pic": "piecesPics/Chess_pdt45.svg"
+},
+{
+    "ind": 10,
+    "col": "b",
+    "piece": "p",
+    "pic": "piecesPics/Chess_pdt45.svg"
+},
 {
     "ind": 11,
     "col": "b",
@@ -185,17 +195,5 @@ null,
     "piece": "r",
     "pic": "piecesPics/Chess_rlt45.svg",
     "moved": false
-},
-{
-    "ind": 9,
-    "col": "b",
-    "piece": "p",
-    "pic": "piecesPics/Chess_pdt45.svg"
-},
-{
-    "ind": 10,
-    "col": "b",
-    "piece": "p",
-    "pic": "piecesPics/Chess_pdt45.svg"
 }
 ]
