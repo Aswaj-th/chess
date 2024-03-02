@@ -26,6 +26,7 @@ function MainBoard() {
     
     const [data, setData] = useState(createData());
     const [moveOn, setMoveOn] = useState(createMoveOnArray());
+    const [whitesMove, setWhitesMove] = useState(true);
 
     const changeMoveOn = (row, col, piece) => {
         if(piece.piece === 'r') {
@@ -365,7 +366,7 @@ function MainBoard() {
     const findMoveAndUpdate = (e, row, col, piece) => {
         // console.log(e.currentTarget);
         if(piece === null) return;
-        if(!moveOn[(row*8)+col]) {
+        if(!moveOn[(row*8)+col] && ((whitesMove && piece.col === 'w') || (!whitesMove && piece.col) === 'b')) {
             e.currentTarget.style.background = 'yellow';
             changeMoveOn(row, col, piece);
         }
