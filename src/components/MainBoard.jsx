@@ -27,12 +27,16 @@ function MainBoard() {
     const [data, setData] = useState(createData());
     const [moveOn, setMoveOn] = useState(createMoveOnArray());
     const [whitesMove, setWhitesMove] = useState(true);
+    const [highlight, setHighlight] = useState({
+        on: false,
+        square: null
+    });
 
     const changeMoveOn = (row, col, piece) => {
         if(piece.piece === 'r') {
             let i = row;
             let j = col;
-            let arr = [...moveOn];
+            let arr = highlight.on ? Array(64).fill(false, 0) : [...moveOn];
             while(i < 7) {
                 i++;
                 if(data[(i*8)+j] != null) {
@@ -89,7 +93,7 @@ function MainBoard() {
         } else if(piece.piece === 'b') {
             let i = row;
             let j = col;
-            let arr = [...moveOn];
+            let arr = highlight.on ? Array(64).fill(false, 0) : [...moveOn];
             while(i < 7 && j < 7) {
                 i++;
                 j++;
@@ -149,7 +153,7 @@ function MainBoard() {
         } else if(piece.piece === 'q') {
             let i = row;
             let j = col;
-            let arr = [...moveOn];
+            let arr = highlight.on ? Array(64).fill(false, 0) : [...moveOn];
             while(i < 7) {
                 i++;
                 if(data[(i*8)+j] != null) {
@@ -261,7 +265,7 @@ function MainBoard() {
         } else if(piece.piece === 'k') {
             let i = row;
             let j = col;
-            let arr = [...moveOn];
+            let arr = highlight.on ? Array(64).fill(false, 0) : [...moveOn];
             if(i > 0) {
                 if(data[(i-1)*8+j] == null || data[(i-1)*8+j].col !== piece.col) {
                     arr[(i-1)*8+j] = true;
@@ -294,7 +298,7 @@ function MainBoard() {
         } else if(piece.piece === 'n') {
             let i = row;
             let j = col;
-            let arr = [...moveOn];
+            let arr = highlight.on ? Array(64).fill(false, 0) : [...moveOn];
             if(i > 0) {
                 if(j > 1 && (data[(i-1)*8+j-2] == null || data[(i-1)*8+j-2].col !== piece.col)) {
                     arr[(i-1)*8+j-2] = true;
@@ -331,7 +335,7 @@ function MainBoard() {
         } else if(piece.piece === 'p') {
             let i = row;
             let j = col;
-            let arr = [...moveOn];
+            let arr = highlight ? Array(64).fill(false, 0) : [...moveOn];
             if(piece.col === 'b') {
                 if(data[(i+1)*8+j] == null) {
                     arr[(i+1)*8+j] = true;
@@ -361,6 +365,13 @@ function MainBoard() {
             }
             setMoveOn(arr);
         }
+        if(highlight.on) {
+            
+        }
+        setHighlight({
+            on: true,
+            square: row*8+col
+        });
     }
 
     const findMoveAndUpdate = (e, row, col, piece) => {
