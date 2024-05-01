@@ -27,10 +27,7 @@ function MainBoard() {
     const [data, setData] = useState(createData());
     const [moveOn, setMoveOn] = useState(createMoveOnArray());
     const [whitesMove, setWhitesMove] = useState(true);
-    const [highlight, setHighlight] = useState({
-        on: false,
-        square: null
-    });
+    const [highlight, setHighlight] = useState(null);
 
     const changeMoveOn = (row, col, piece) => {
         if(piece.piece === 'r') {
@@ -365,20 +362,13 @@ function MainBoard() {
             }
             setMoveOn(arr);
         }
-        if(highlight.on) {
-            
-        }
-        setHighlight({
-            on: true,
-            square: row*8+col
-        });
     }
 
     const findMoveAndUpdate = (e, row, col, piece) => {
         // console.log(e.currentTarget);
         if(piece === null) return;
         if(!moveOn[(row*8)+col] && ((whitesMove && piece.col === 'w') || (!whitesMove && piece.col) === 'b')) {
-            e.currentTarget.style.background = 'yellow';
+            setHighlight(row*8+col);
             changeMoveOn(row, col, piece);
         }
     }
@@ -386,14 +376,14 @@ function MainBoard() {
     //console.log(jsonData);
     return (
         <div className="mainBoard">
-            <Row row={0} data={data} moveOn={moveOn.slice(0, 8)} findMoveAndUpdate={findMoveAndUpdate}/>
-            <Row row={1} data={data} moveOn={moveOn.slice(8, 16)} findMoveAndUpdate={findMoveAndUpdate}/>
-            <Row row={2} data={data} moveOn={moveOn.slice(16, 24)} findMoveAndUpdate={findMoveAndUpdate}/>
-            <Row row={3} data={data} moveOn={moveOn.slice(24, 32)} findMoveAndUpdate={findMoveAndUpdate}/>
-            <Row row={4} data={data} moveOn={moveOn.slice(32, 40)} findMoveAndUpdate={findMoveAndUpdate}/>
-            <Row row={5} data={data} moveOn={moveOn.slice(40, 48)} findMoveAndUpdate={findMoveAndUpdate}/>
-            <Row row={6} data={data} moveOn={moveOn.slice(48, 56)} findMoveAndUpdate={findMoveAndUpdate}/>
-            <Row row={7} data={data} moveOn={moveOn.slice(56)} findMoveAndUpdate={findMoveAndUpdate}/>
+            <Row row={0} data={data} moveOn={moveOn.slice(0, 8)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={1} data={data} moveOn={moveOn.slice(8, 16)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={2} data={data} moveOn={moveOn.slice(16, 24)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={3} data={data} moveOn={moveOn.slice(24, 32)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={4} data={data} moveOn={moveOn.slice(32, 40)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={5} data={data} moveOn={moveOn.slice(40, 48)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={6} data={data} moveOn={moveOn.slice(48, 56)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={7} data={data} moveOn={moveOn.slice(56)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
         </div>
     )
 }
