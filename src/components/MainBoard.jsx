@@ -33,7 +33,7 @@ function MainBoard() {
         if(piece.piece === 'r') {
             let i = row;
             let j = col;
-            let arr = highlight.on ? Array(64).fill(false, 0) : [...moveOn];
+            let arr = highlight ? Array(64).fill(false, 0) : [...moveOn];
             while(i < 7) {
                 i++;
                 if(data[(i*8)+j] != null) {
@@ -90,7 +90,7 @@ function MainBoard() {
         } else if(piece.piece === 'b') {
             let i = row;
             let j = col;
-            let arr = highlight.on ? Array(64).fill(false, 0) : [...moveOn];
+            let arr = highlight ? Array(64).fill(false, 0) : [...moveOn];
             while(i < 7 && j < 7) {
                 i++;
                 j++;
@@ -150,7 +150,7 @@ function MainBoard() {
         } else if(piece.piece === 'q') {
             let i = row;
             let j = col;
-            let arr = highlight.on ? Array(64).fill(false, 0) : [...moveOn];
+            let arr = highlight ? Array(64).fill(false, 0) : [...moveOn];
             while(i < 7) {
                 i++;
                 if(data[(i*8)+j] != null) {
@@ -262,7 +262,7 @@ function MainBoard() {
         } else if(piece.piece === 'k') {
             let i = row;
             let j = col;
-            let arr = highlight.on ? Array(64).fill(false, 0) : [...moveOn];
+            let arr = highlight ? Array(64).fill(false, 0) : [...moveOn];
             if(i > 0) {
                 if(data[(i-1)*8+j] == null || data[(i-1)*8+j].col !== piece.col) {
                     arr[(i-1)*8+j] = true;
@@ -295,7 +295,7 @@ function MainBoard() {
         } else if(piece.piece === 'n') {
             let i = row;
             let j = col;
-            let arr = highlight.on ? Array(64).fill(false, 0) : [...moveOn];
+            let arr = highlight ? Array(64).fill(false, 0) : [...moveOn];
             if(i > 0) {
                 if(j > 1 && (data[(i-1)*8+j-2] == null || data[(i-1)*8+j-2].col !== piece.col)) {
                     arr[(i-1)*8+j-2] = true;
@@ -364,6 +364,16 @@ function MainBoard() {
         }
     }
 
+    const movePiece = (ind) => {
+        const newData = [...data];
+        newData[ind] = newData[highlight];
+        newData[highlight] = null;
+        setData(newData);
+        setWhitesMove(!whitesMove);
+        setMoveOn(createMoveOnArray());
+        setHighlight(null);
+    }
+
     const findMoveAndUpdate = (e, row, col, piece) => {
         // console.log(e.currentTarget);
         if(piece === null) return;
@@ -376,14 +386,14 @@ function MainBoard() {
     //console.log(jsonData);
     return (
         <div className="mainBoard">
-            <Row row={0} data={data} moveOn={moveOn.slice(0, 8)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
-            <Row row={1} data={data} moveOn={moveOn.slice(8, 16)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
-            <Row row={2} data={data} moveOn={moveOn.slice(16, 24)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
-            <Row row={3} data={data} moveOn={moveOn.slice(24, 32)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
-            <Row row={4} data={data} moveOn={moveOn.slice(32, 40)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
-            <Row row={5} data={data} moveOn={moveOn.slice(40, 48)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
-            <Row row={6} data={data} moveOn={moveOn.slice(48, 56)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
-            <Row row={7} data={data} moveOn={moveOn.slice(56)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={0} data={data} movePiece={movePiece} moveOn={moveOn.slice(0, 8)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={1} data={data} movePiece={movePiece} moveOn={moveOn.slice(8, 16)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={2} data={data} movePiece={movePiece} moveOn={moveOn.slice(16, 24)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={3} data={data} movePiece={movePiece} moveOn={moveOn.slice(24, 32)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={4} data={data} movePiece={movePiece} moveOn={moveOn.slice(32, 40)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={5} data={data} movePiece={movePiece} moveOn={moveOn.slice(40, 48)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={6} data={data} movePiece={movePiece} moveOn={moveOn.slice(48, 56)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
+            <Row row={7} data={data} movePiece={movePiece} moveOn={moveOn.slice(56)} findMoveAndUpdate={findMoveAndUpdate} highlight={highlight}/>
         </div>
     )
 }
