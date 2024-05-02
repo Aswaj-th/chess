@@ -9,9 +9,7 @@ function Square({row, col, piece, movePiece, moveOn, findMoveAndUpdate, highligh
     
     const handleClick = (e) => {
         if(!currentMoveOn) findMoveAndUpdate(e, row, col, piece);
-        else {
-            movePiece(row*8+col);
-        }
+        else movePiece(row*8+col);
     }
     const white = ((row+col)%2 === 0);
     return (

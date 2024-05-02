@@ -1,7 +1,7 @@
 import React from 'react';
 import Square from './Square';
 
-function Row( {row, data, movePiece, moveOn, findMoveAndUpdate, highlight }) {
+function Row( {row, data, movePiece, moveOn, findMoveAndUpdate, highlight, moveDetails }) {
     const newMoveOn=[...moveOn]
     return (
     <div className='row'>
